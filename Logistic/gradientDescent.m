@@ -1,0 +1,1 @@
+function theta = gradientDescent(X, y, theta, alpha, lambda, niter)m = length(y);for iter = 1:niter;  tmp = theta;   for j = 2:length(theta);    tmp(j) = theta(j) - (alpha/m) * ((sigmoid(X*theta) - y)' * X(:, j)) ...      + lambda * theta(j) / m;  end  tmp(1) = theta(1) - (alpha/m) * ((sigmoid(X*theta) - y)' * X(:, j));  theta = tmp;endend
