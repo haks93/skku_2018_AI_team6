@@ -28,11 +28,19 @@ xtest(:, 3) = (xtest(:, 3) - mu_fare2) ./ sigma_fare2;
 % 변수 초기화
 theta = zeros(size(X, 2), 1); %가중치 설정
 lambda = 0; %정규화 가중치 설정
-learning_rate = 0.003; %학습률 설정
+learning_rate = [0.001; 0.003; 0.01; 0.03; 0.1; 0.3; 1; 3; 9]; %학습률 설정
 
 %%%%%%%%%%%%%%% 직접 만든 로지스틱회귀와 octave 제공 함수 중 선택하여 성능 비교 %%%%%%%%%%%%%
 %직접 코딩한 로지스틱 회귀
-%theta = gradientDescent(X, y, theta, learning_rate, lambda, 5000);
+for i = 1:length(learning_rate)
+  theta = gradientDescent(X, y, theta, learning_rate(i), lambda, 1000);
+  
+  fprintf('Learning rate: %f\n', learning_rate(i));
+  p = predict(theta, X);
+  fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
+  p = predict(theta, xtest);
+  fprintf('Test Accuracy: %f\n\n', mean(double(p == ytest)) * 100);
+end
 
 % octave에서 제공하는 함수
 options = optimset('GradObj', 'on', 'MaxIter', 1000);
@@ -42,6 +50,6 @@ options = optimset('GradObj', 'on', 'MaxIter', 1000);
   
 % 훈련 정확도 및 예측 정확도 출력
 p = predict(theta, X);
-fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
+fprintf('Octave Optimze\nTrain Accuracy: %f\n', mean(double(p == y)) * 100);
 p = predict(theta, xtest);
 fprintf('Test Accuracy: %f\n', mean(double(p == ytest)) * 100);
