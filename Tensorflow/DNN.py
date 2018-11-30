@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 
 np.random.seed(7)
 
-xtrain = pd.read_csv('../xtrain3.csv')
-xtest = pd.read_csv('../xtest3.csv')
+xtrain = pd.read_csv('../xtrain2.csv')
+xtest = pd.read_csv('../xtest2.csv')
 ytest = pd.read_csv('../ytest.csv')
 ytrain = pd.read_csv('../ytrain.csv')
 
